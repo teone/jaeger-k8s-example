@@ -25,8 +25,10 @@ kind load docker-image matteoscandolo/jaeger-k8s-example:latest
 kubectl create -f jaeger-k8s-example.yml
 ```
 
-Open the Jaeger dashboard and see your metrics:
+Expose the Jaeger dashboard
 
 ```
 kubectl port-forward service/jaeger-query 3000:80
 ```
+
+and check your traces [http://localhost:3000](http://localhost:3000)
