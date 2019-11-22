@@ -19,8 +19,10 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"go.opentelemetry.io/otel/api/core"
 	"go.opentelemetry.io/otel/api/key"
+	"os"
 	"log"
 	"time"
 
@@ -31,9 +33,14 @@ import (
 
 // initTracer creates a new trace provider instance and registers it as global trace provider.
 func initTracer() func() {
+
+	collectorUrl := os.Getenv("JAEGER_COLLECTOR_URL")
+	collectorPort := os.Getenv("JAEGER_COLLECTOR_PORT")
+	collectorEndpoint := fmt.Sprintf("http://%s:%s/api/traces", collectorUrl, collectorPort)
+
 	// Create Jaeger Exporter
 	exporter, err := jaeger.NewExporter(
-		jaeger.WithCollectorEndpoint("http://jaeger-collector:14268/api/traces"),
+		jaeger.WithCollectorEndpoint(collectorEndpoint),
 		jaeger.WithProcess(jaeger.Process{
 			ServiceName: "trace-demo",
 			Tags: []core.KeyValue{

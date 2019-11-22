@@ -15,10 +15,15 @@
 apiVersion: v1
 kind: List
 items:
+- apiVersion: v1
+  kind: Namespace
+  metadata:
+    name: tracing
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
     name: jaeger
+    namespace: tracing
     labels:
       app: jaeger
       app.kubernetes.io/name: jaeger
@@ -68,6 +73,7 @@ items:
   kind: Service
   metadata:
     name: jaeger-query
+    namespace: tracing
     labels:
       app: jaeger
       app.kubernetes.io/name: jaeger
@@ -86,6 +92,7 @@ items:
   kind: Service
   metadata:
     name: jaeger-collector
+    namespace: tracing
     labels:
       app: jaeger
       app.kubernetes.io/name: jaeger
@@ -112,6 +119,7 @@ items:
   kind: Service
   metadata:
     name: jaeger-agent
+    namespace: tracing
     labels:
       app: jaeger
       app.kubernetes.io/name: jaeger
@@ -142,6 +150,7 @@ items:
   kind: Service
   metadata:
     name: zipkin
+    namespace: tracing
     labels:
       app: jaeger
       app.kubernetes.io/name: jaeger

@@ -22,7 +22,9 @@ items:
         containers:
           - name: jaeger-k8s-example
             env:
-            - name: COLLECTOR_ZIPKIN_HTTP_PORT
-              value: "9411"
-            image: matteoscandolo/jaeger-k8s-example:latest
+            - name: JAEGER_COLLECTOR_URL
+              value: "jaeger-collector.tracing.svc.cluster.local"
+            - name: JAEGER_COLLECTOR_PORT
+              value: "14268"
+            image: teone/jaeger-k8s-example:latest
             imagePullPolicy: IfNotPresent
